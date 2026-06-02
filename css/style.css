@@ -41,10 +41,19 @@ body {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--mocha-mousse);
+}
+
+.logo img {
+  width: 100px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .nav-links {
