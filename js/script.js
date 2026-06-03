@@ -50,3 +50,33 @@ function addResource() {
   document.getElementById("resourceSubject").value = "";
   document.getElementById("resourceFile").value = "";
 }
+
+function addGoal() {
+  const goalText = document.getElementById("goalInput").value;
+
+  if (goalText === "") {
+    alert("Please enter a goal.");
+    return;
+  }
+
+  const goalCard = document.createElement("div");
+
+  goalCard.classList.add("goal-card");
+
+  goalCard.innerHTML = `
+        <span>${goalText}</span>
+        <button class="complete-btn">
+            Complete
+        </button>
+    `;
+
+  const completeButton = goalCard.querySelector(".complete-btn");
+
+  completeButton.addEventListener("click", function () {
+    goalCard.querySelector("span").classList.toggle("completed");
+  });
+
+  document.getElementById("goalList").appendChild(goalCard);
+
+  document.getElementById("goalInput").value = "";
+}

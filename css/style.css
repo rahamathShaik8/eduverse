@@ -351,3 +351,53 @@ footer {
 .resource-card p {
   margin: 5px 0;
 }
+
+/* Goal Tracker */
+
+.goal-section {
+  padding: 80px 8%;
+}
+
+.goal-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.goal-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.goal-container input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.goal-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 18px;
+  margin-top: 12px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.complete-btn {
+  background: var(--ethereal-blue);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
