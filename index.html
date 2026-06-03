@@ -123,6 +123,35 @@
         <div id="notesList"></div>
       </div>
     </section>
+    <!-- Resource Vault Section -->
+
+    <section class="resource-section">
+      <h2>📚 Resource Vault</h2>
+
+      <div class="resource-container">
+        <input
+          type="text"
+          id="resourceTitle"
+          placeholder="Enter Resource Title"
+        />
+
+        <select id="resourceSubject">
+          <option value="">Select Subject</option>
+          <option>DBMS</option>
+          <option>Operating Systems</option>
+          <option>DSA</option>
+          <option>Java</option>
+          <option>Web Development</option>
+          <option>Other</option>
+        </select>
+
+        <input type="file" id="resourceFile" accept=".pdf" />
+
+        <button class="btn" onclick="addResource()">Upload Resource</button>
+
+        <div id="resourceList"></div>
+      </div>
+    </section>
     <section class="motivation">
       <h2>Daily Motivation</h2>
 
