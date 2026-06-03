@@ -401,3 +401,57 @@ footer {
   text-decoration: line-through;
   opacity: 0.7;
 }
+
+/* Focus Room */
+
+.focus-section {
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.focus-section h2 {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+
+.focus-subtitle {
+  margin-bottom: 30px;
+  color: #666;
+}
+
+.focus-container {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.timer {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: var(--mocha-mousse);
+}
+
+.focus-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.stop-btn {
+  background: #ffd6d6;
+}
+
+.reset-btn {
+  background: #f0e5d8;
+}
+
+.session-box {
+  margin-top: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}

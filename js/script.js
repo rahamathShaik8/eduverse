@@ -80,3 +80,54 @@ function addGoal() {
 
   document.getElementById("goalInput").value = "";
 }
+
+let seconds = 0;
+let timerInterval = null;
+let sessionsCompleted = 0;
+
+function updateTimer() {
+  let hrs = Math.floor(seconds / 3600);
+
+  let mins = Math.floor((seconds % 3600) / 60);
+
+  let secs = seconds % 60;
+
+  document.getElementById("timerDisplay").textContent =
+    `${String(hrs).padStart(2, "0")}:` +
+    `${String(mins).padStart(2, "0")}:` +
+    `${String(secs).padStart(2, "0")}`;
+}
+
+function startTimer() {
+  if (timerInterval !== null) {
+    return;
+  }
+
+  timerInterval = setInterval(() => {
+    seconds++;
+    updateTimer();
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+
+    sessionsCompleted++;
+
+    document.getElementById("sessionCount").textContent = sessionsCompleted;
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+
+  timerInterval = null;
+
+  seconds = 0;
+
+  updateTimer();
+}
+
+updateTimer();
