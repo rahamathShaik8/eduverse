@@ -1,27 +1,82 @@
-function addNote() {
-  const title = document.getElementById("noteTitle").value;
-  const content = document.getElementById("noteContent").value;
+const API_URL = "http://localhost:5000/api";
 
-  if (title === "" || content === "") {
-    alert("Please fill all fields");
+async function addNote() {
+  const title = document.getElementById("noteTitle").value.trim();
+  const content = document.getElementById("noteContent").value.trim();
+
+  if (!title || !content) {
+    alert("Please fill all fields.");
     return;
   }
 
-  const noteCard = document.createElement("div");
+  try {
+    const response = await fetch(`${API_URL}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+      }),
+    });
 
-  noteCard.classList.add("note-card");
+    if (!response.ok) {
+      throw new Error("Failed to save note.");
+    }
 
-  noteCard.innerHTML = `
-        <h3>${title}</h3>
-        <p>${content}</p>
-    `;
+    document.getElementById("noteTitle").value = "";
+    document.getElementById("noteContent").value = "";
 
-  document.getElementById("notesList").appendChild(noteCard);
+    loadNotes();
 
-  document.getElementById("noteTitle").value = "";
-  document.getElementById("noteContent").value = "";
+    alert("✅ Note saved successfully!");
+  } catch (error) {
+    console.error(error);
+    alert("❌ Unable to connect to the server.");
+  }
 }
+async function loadNotes() {
+  try {
+    const response = await fetch(`${API_URL}/notes`);
 
+    const notes = await response.json();
+
+    const notesList = document.getElementById("notesList");
+
+    notesList.innerHTML = "";
+
+    notes.forEach((note) => {
+      const card = document.createElement("div");
+
+      card.className = "note-card";
+
+      card.innerHTML = `
+        <h3>${note.title}</h3>
+        <p>${note.content}</p>
+
+        <button onclick="deleteNote('${note._id}')">
+          Delete
+        </button>
+      `;
+
+      notesList.appendChild(card);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+async function deleteNote(id) {
+  try {
+    await fetch(`${API_URL}/notes/${id}`, {
+      method: "DELETE",
+    });
+
+    loadNotes();
+  } catch (err) {
+    console.log(err);
+  }
+}
 function addResource() {
   const title = document.getElementById("resourceTitle").value;
 

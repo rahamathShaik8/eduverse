@@ -45,3 +45,16 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
+router.delete("/:id", async (req, res) => {
+  try {
+    await Note.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "Note deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
