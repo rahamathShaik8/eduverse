@@ -1,31 +1,47 @@
 const express = require("express");
-
 const router = express.Router();
 
-let notes = [];
+const Note = require("../models/Note");
 
-router.get("/", (req, res) => {
-  res.json(notes);
-});
+// GET all notes
+router.get("/", async (req, res) => {
+  try {
+    const notes = await Note.find().sort({ createdAt: -1 });
 
-router.post("/", (req, res) => {
-  const { title, content } = req.body;
-
-  if (!title || !content || title.trim() === "" || content.trim() === "") {
-    return res.status(400).json({
-      message: "Title and content are required",
+    res.status(200).json(notes);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch notes",
+      error: error.message,
     });
   }
+});
 
-  const newNote = {
-    id: Date.now(),
-    title,
-    content,
-    createdAt: new Date(),
-  };
-  notes.push(newNote);
+// POST new note
+router.post("/", async (req, res) => {
+  try {
+    const { title, content } = req.body;
 
-  res.status(201).json(newNote);
+    if (!title || !content) {
+      return res.status(400).json({
+        message: "Title and Content are required",
+      });
+    }
+
+    const newNote = new Note({
+      title,
+      content,
+    });
+
+    const savedNote = await newNote.save();
+
+    res.status(201).json(savedNote);
+  } catch (error) {
+    res.status(500).json({
+      message: "Unable to save note",
+      error: error.message,
+    });
+  }
 });
 
 module.exports = router;

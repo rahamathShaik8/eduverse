@@ -1,31 +1,68 @@
 const express = require("express");
-
 const router = express.Router();
 
-let resources = [];
+const Resource = require("../models/Resource");
 
-router.get("/", (req, res) => {
-  res.json(resources);
+// GET Resources
+router.get("/", async (req, res) => {
+
+    try{
+
+        const resources = await Resource.find().sort({createdAt:-1});
+
+        res.json(resources);
+
+    }
+
+    catch(err){
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
+
 });
 
-router.post("/", (req, res) => {
-  const { title, subject } = req.body;
+// POST Resource
 
-  if (!title || !subject || title.trim() === "" || subject.trim() === "") {
-    return res.status(400).json({
-      message: "Title and subject are required",
-    });
-  }
+router.post("/", async(req,res)=>{
 
-  const newResource = {
-    id: Date.now(),
-    title,
-    subject,
-    createdAt: new Date(),
-  };
-  resources.push(newResource);
+    try{
 
-  res.status(201).json(newResource);
+        const {title,subject}=req.body;
+
+        if(!title || !subject){
+
+            return res.status(400).json({
+                message:"Title and Subject required"
+            });
+
+        }
+
+        const newResource=new Resource({
+
+            title,
+            subject
+
+        });
+
+        const savedResource=await newResource.save();
+
+        res.status(201).json(savedResource);
+
+    }
+
+    catch(err){
+
+        res.status(500).json({
+
+            message:err.message
+
+        });
+
+    }
+
 });
 
-module.exports = router;
+module.exports=router;
